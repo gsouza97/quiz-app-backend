@@ -7,7 +7,9 @@ const app = express();
 app.use(bodyParser);
 
 mongoose
-  .connect()
+  .connect(
+    "mongodb+srv://binho:lsY9j9dQoJ3QJ9W9@cluster0.6c0dg.mongodb.net/Quiz?retryWrites=true&w=majority"
+  )
   .then(() => {
     app.listen(4000);
   })
