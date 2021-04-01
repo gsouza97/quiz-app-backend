@@ -1,23 +1,35 @@
-let DUMMY = [
-  {
-    id: "q1",
-    question: "qual a sua cor preferida",
-    option1: "Azul",
-    option1: "Amarelo",
-    option1: "Vermelho",
-    option1: "Larajna",
-    answer: 2,
-  },
-];
+const Question = require("../models/question");
 
-const getQuestions = (req, res, next) => {
+const getQuestions = async (req, res, next) => {
   let questions;
   try {
-    questions = DUMMY.find();
+    questions = await Question.find();
   } catch (err) {}
-  res.json('linda');
+  res.json({
+    questions: questions.map((question) =>
+      question.toObject({ getters: true })
+    ),
+  });
 };
 
-//const postQuestion = async(req, res);
+const createQuestion = async (req, res, next) => {
+  const { question, option1, option2, option3, option4, answer } = req.body;
+
+  const createdQuestion = new Question({
+    question: question,
+    option1: option1,
+    option2: option2,
+    option3: option3,
+    option4: option4,
+    answerIndex: answer,
+  });
+
+  try {
+    await createdQuestion.save();
+  } catch (err) {}
+
+  res.status(201).json({ question: createdQuestion });
+};
 
 exports.getQuestions = getQuestions;
+exports.createQuestion = createQuestion;
