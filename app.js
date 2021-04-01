@@ -2,9 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+const questionsRoutes = require("../routes/questions-routes");
+
 const app = express();
 
 app.use(bodyParser);
+
+app.use("api/questions/", questionsRoutes);
 
 mongoose
   .connect(
