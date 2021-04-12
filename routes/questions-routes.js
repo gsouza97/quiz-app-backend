@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get("/", questionsControllers.getQuestions);
 router.post("/", questionsControllers.createQuestion);
+router.delete("/:qid", questionsControllers.deleteQuestion);
 
 module.exports = router;
